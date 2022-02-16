@@ -7,23 +7,37 @@
     <meta name="description" content="This is a super smart queue time calculator for Lost Ark, It's so easy to use, You can use it to predict when you will be inside the game! Created by Burgil.">
     <meta name="author" content="Burgil">
     <title>Lost Ark: Queue Calculator</title>
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link href="bootstrap.min.css" rel="stylesheet">
     <link href="cover.css" rel="stylesheet">
 </head>
 <body class="d-flex h-100 text-center text-white bg-dark">
-    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    <div class="d-flex w-100 h-100 p-3 mx-auto flex-column">
         <header class="mb-auto">
             <div>
                 <h3 class="mb-0">Lost Ark: Queue Calculator</h3>
             </div>
         </header>
         <main class="px-3">
-            <img src="lostark.webp" alt="This is a super smart queue time calculator for Lost Ark, It's so easy to use, You can use it to predict when you will be inside the game! Created by Burgil." loading=lazy>
-            <p class="lead">Enter Queue Image + Input here</p>
-            <p class="lead">
-                <a href="#" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Add</a>
-            </p>
+            <div class="image-blurred-edge">
+                <div class="la-form">
+                    <input type="number" class="form-control" placeholder="Enter Queue..">
+                    <a href="#" class="btn btn-lg btn-primary fw-bold">Add</a>
+                </div>
+                <div class="black-box">Calculator</div>
+                <table class="table-dark">
+                    <tr>
+                        <th>Queue</th>
+                        <th>Time</th>
+                        <th>ETA</th>
+                    </tr>
+                     <tr>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                    </tr>
+                </table>
+            </div>
         </main>
         <footer class="mt-auto text-white-50">
             <p>Burgil © All Rights Reserved - 2022</p>
