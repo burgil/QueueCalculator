@@ -66,7 +66,8 @@ function addQueue() {
             console.log('ETA: ' + ETA)
             console.log('------------------------------')
             td3.innerHTML = ETA
-            goodAlert(ETA)
+            const minutesLeft = ETA_MiliSeconds / 1000 / 60
+            goodAlert(ETA, minutesLeft)
         } else {
             td3.innerHTML = 'Unknown yet'
             warnAlert()
@@ -151,20 +152,37 @@ function weedAlert() {
 function warnAlert() {
     GrowlNotification.notify({
         title: 'Need one more!',
-        description: 'Please add one more in order to find out when you will enter the game!',
+        description: 'Wait a bit and add one more to calculate your ETA!',
         type: 'warning',
         position: 'top-right',
         closeTimeout: 8000
     })
 }
 
-function goodAlert(ETA) {
+function goodAlert(ETA, minutesLeft) {
     GrowlNotification.closeAll()
     GrowlNotification.notify({
         title: 'ETA',
-        description: 'You will enter the game in ' + ETA,
+        description: 'You will enter the game in ' + ETA + '<br>(' + Math.round(minutesLeft) + ' minutes left)',
         type: 'success',
         position: 'top-right',
         closeTimeout: 0
     })
 }
+
+setInterval(() => {
+    document.querySelector('input').focus()
+    document.getElementById('currentTime').innerHTML = new Date().toLocaleTimeString()
+}, 1000)
+
+GrowlNotification.notify({
+    title: 'Welcome Adventurer!',
+    description: 'Use the Add button to add your current Queue, Then wait a while and add your new Queue to know when you will be inside the game (ETA).',
+    type: 'success',
+    position: 'top-right',
+    closeTimeout: 15000
+})
+
+setTimeout(() => {
+    document.querySelector('.table-dark').classList.add('shown')
+})
