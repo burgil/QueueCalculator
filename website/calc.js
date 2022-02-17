@@ -2,6 +2,8 @@ let count = 0
 let firstQueue = undefined
 let firstTime = undefined
 let updateETA = 0
+let minutesLeft = 0
+let ETA_MiliSeconds = 0
 
 document.querySelector('input').addEventListener("keyup", (e) => {
     e.target.value = e.target.value.replace(/[^0-9\.]+/g, '')
@@ -52,7 +54,7 @@ function addQueue() {
             const queueLeft = currentQueue / queueChange
             const currentTime = today.getTime()
             const timeChange = currentTime - firstTime
-            let ETA_MiliSeconds = queueLeft * timeChange
+            ETA_MiliSeconds = queueLeft * timeChange
             const unix_timestamp = +(currentTime + ETA_MiliSeconds).toFixed(0)
             const ETA = new Date(unix_timestamp).toLocaleTimeString()
             console.log('firstQueue: ' + firstQueue)
@@ -67,14 +69,14 @@ function addQueue() {
             console.log('ETA: ' + ETA)
             console.log('------------------------------')
             td3.innerHTML = ETA
-            let minutesLeft = ETA_MiliSeconds / 1000 / 60
+            minutesLeft = ETA_MiliSeconds / 1000 / 60
             goodAlert(ETA, minutesLeft, true)
             if (updateETA !== 0) {
                 clearInterval(updateETA)
                 updateETA = 0;
             }
             updateETA = setInterval(()=>{
-                ETA_MiliSeconds -= 1000
+                ETA_MiliSeconds -= 60000
                 minutesLeft = ETA_MiliSeconds / 1000 / 60
                 goodAlert(ETA, minutesLeft, false)
             }, 60000);
