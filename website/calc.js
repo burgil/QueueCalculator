@@ -1,6 +1,7 @@
 let count = 0
-let lastQueue = undefined
-let lastTime = undefined
+let firstQueue = undefined
+let firstTime = undefined
+let updateETA = 0
 
 document.querySelector('input').addEventListener("keyup", (e) => {
     e.target.value = e.target.value.replace(/[^0-9\.]+/g, '')
@@ -12,15 +13,15 @@ function numberWithCommas(x) {
 }
 
 function addQueue() {
-    today = new Date()
+    let today = new Date()
     currentQueue = +document.querySelector('input').value
     if (currentQueue == 0) {
         badAlert()
-    } else if (lastQueue !== undefined && lastQueue == currentQueue) {
+    } else if (firstQueue !== undefined && firstQueue == currentQueue) {
         repeatAlert()
     } else if (currentQueue < 420) {
         smallAlert()
-    } else if (lastQueue !== undefined && currentQueue > lastQueue) {
+    } else if (firstQueue !== undefined && currentQueue > firstQueue) {
         senseAlert()
     } else if (currentQueue > 99999) {
         cheaterAlert()
@@ -47,18 +48,18 @@ function addQueue() {
             10 minutes = 2500
             7500 / 2500 = 3 * 10 minutes = 30 minutes
             */
-            const queueChange = lastQueue - currentQueue
-            const currentTime = today.getTime()
-            const timeChange = currentTime - lastTime
+            const queueChange = firstQueue - currentQueue
             const queueLeft = currentQueue / queueChange
-            const ETA_MiliSeconds = queueLeft * timeChange
+            const currentTime = today.getTime()
+            const timeChange = currentTime - firstTime
+            let ETA_MiliSeconds = queueLeft * timeChange
             const unix_timestamp = +(currentTime + ETA_MiliSeconds).toFixed(0)
             const ETA = new Date(unix_timestamp).toLocaleTimeString()
-            console.log('lastQueue: ' + lastQueue)
+            console.log('firstQueue: ' + firstQueue)
             console.log('currentQueue: ' + currentQueue)
             console.log('queueChange: ' + queueChange)
             console.log('currentTime: ' + currentTime)
-            console.log('lastTime: ' + lastTime)
+            console.log('firstTime: ' + firstTime)
             console.log('timeChange: ' + timeChange)
             console.log('queueLeft: ' + queueLeft)
             console.log('ETA_MiliSeconds: ' + ETA_MiliSeconds)
@@ -66,16 +67,27 @@ function addQueue() {
             console.log('ETA: ' + ETA)
             console.log('------------------------------')
             td3.innerHTML = ETA
-            const minutesLeft = ETA_MiliSeconds / 1000 / 60
-            goodAlert(ETA, minutesLeft)
+            let minutesLeft = ETA_MiliSeconds / 1000 / 60
+            goodAlert(ETA, minutesLeft, true)
+            if (updateETA !== 0) {
+                clearInterval(updateETA)
+                updateETA = 0;
+            }
+            updateETA = setInterval(()=>{
+                ETA_MiliSeconds -= 1000
+                minutesLeft = ETA_MiliSeconds / 1000 / 60
+                goodAlert(ETA, minutesLeft, false)
+            }, 60000);
         } else {
             td3.innerHTML = 'Unknown yet'
             warnAlert()
         }
         tr.append(td3)
     }
-    lastQueue = currentQueue
-    lastTime = today.getTime()
+    if (count == 1) {
+        firstQueue = currentQueue
+        firstTime = today.getTime()
+    }
     document.querySelector('input').value = ''
 }
 
@@ -159,15 +171,40 @@ function warnAlert() {
     })
 }
 
-function goodAlert(ETA, minutesLeft) {
+function goodAlert(ETA, minutesLeft, showUpdate) {
     GrowlNotification.closeAll()
-    GrowlNotification.notify({
-        title: 'ETA',
-        description: 'You will enter the game in ' + ETA + '<br>(' + Math.round(minutesLeft) + ' minutes left)',
-        type: 'success',
-        position: 'top-right',
-        closeTimeout: 0
-    })
+    const roundMinutesLeft = Math.round(minutesLeft)
+    if (roundMinutesLeft > 0) {
+        if (showUpdate) {
+            GrowlNotification.notify({
+                title: 'ETA',
+                description: 'You will enter the game in ' + ETA + '<br><b>(' + roundMinutesLeft + ' minutes left)</b><br><span style="font-size:14px">* Updates every minute</span>',
+                type: 'success',
+                position: 'top-right',
+                closeTimeout: 0
+            })
+        } else {
+            GrowlNotification.notify({
+                title: 'ETA',
+                description: 'You will enter the game in ' + ETA + '<br><b>(' + roundMinutesLeft + ' minutes left)</b>',
+                type: 'success',
+                position: 'top-right',
+                closeTimeout: 0
+            })
+        }
+    } else {
+        if (updateETA !== 0) {
+            clearInterval(updateETA)
+            updateETA = 0;
+        }
+        GrowlNotification.notify({
+            title: 'Success!',
+            description: 'You should be inside the game!',
+            type: 'success',
+            position: 'top-right',
+            closeTimeout: 0
+        })
+    }
 }
 
 setInterval(() => {
