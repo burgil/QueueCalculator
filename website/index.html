@@ -1,28 +1,49 @@
 <!DOCTYPE html>
 <html lang="en" class="h-100">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="This is a super smart queue time calculator for Lost Ark, It's so easy to use, You can use it to predict when you will be inside the game! Created by Burgil.">
+    <meta name="description"
+        content="This is a super smart queue time calculator for Lost Ark, It's so easy to use, You can use it to predict when you will be inside the game! Created by Burgil.">
     <meta name="author" content="Burgil">
     <title>Lost Ark: Queue Calculator</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link href="bootstrap.min.css" rel="stylesheet">
     <link href="cover.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,500,600" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+        body {
+            font-family: 'Open Sans';
+        }
+
+        .growl-notification__content * {
+            text-align: left !important;
+        }
+    </style>
+    <link href="light-theme.min.css" rel="stylesheet">
+    <link href="dark-theme.min.css" rel="stylesheet">
+    <link href="colored-theme.min.css" rel="stylesheet">
+    <script type="text/javascript" src="growl-notification.min.js"></script>
 </head>
+
 <body class="d-flex h-100 text-center text-white bg-dark">
     <div class="d-flex w-100 h-100 p-3 mx-auto flex-column">
         <header class="mb-auto">
-            <div>
-                <h3 class="mb-0">Lost Ark: Queue Calculator</h3>
+            <div class="head">
+                <h3 class="mb-0">Queue Calculator</h3>
+                <div class="ark-sprite"></div>
+                <img src="LostArkLogo.png" width="132" height="33" alt="Lost Ark Logo">
             </div>
         </header>
         <main class="px-3">
             <div class="image-blurred-edge">
                 <div class="la-form">
                     <input type="number" class="form-control" placeholder="Enter Queue..">
-                    <a href="#" class="btn btn-lg btn-primary fw-bold">Add</a>
+                    <a href="javascript:addQueue()" class="btn btn-lg btn-primary fw-bold">Add</a>
                 </div>
                 <div class="black-box">Calculator</div>
                 <table class="table-dark">
@@ -31,10 +52,10 @@
                         <th>Time</th>
                         <th>ETA</th>
                     </tr>
-                     <tr>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                     </tr>
                 </table>
             </div>
@@ -43,5 +64,7 @@
             <p>Burgil © All Rights Reserved - 2022</p>
         </footer>
     </div>
+    <script src="calc.js"></script>
 </body>
+
 </html>
