@@ -8,4 +8,3 @@ git add *
 set /p gitcommit="Enter Initial Commit: "
 git commit -m "%gitcommit%"
 git push
-pause

@@ -85,7 +85,7 @@ function badAlert() {
         description: 'You forgot to enter the queue moron.',
         type: 'error',
         position: 'top-right',
-        closeTimeout: 4000
+        closeTimeout: 4500
     })
 }
 
@@ -95,7 +95,7 @@ function smallAlert() {
         description: 'Can not calculate anything below 420 (;',
         type: 'error',
         position: 'top-right',
-        closeTimeout: 4000
+        closeTimeout: 4500
     })
 }
 
@@ -105,7 +105,7 @@ function senseAlert(before, after) {
         description: 'WTF it makes no sense you went up in the queue! haha (' + `${before}->${after}` + ')',
         type: 'error',
         position: 'top-right',
-        closeTimeout: 4000
+        closeTimeout: 4500
     })
 }
 
@@ -115,7 +115,7 @@ function repeatAlert() {
         description: 'You entered the same queue number as last time moron.',
         type: 'error',
         position: 'top-right',
-        closeTimeout: 4000
+        closeTimeout: 4500
     })
 }
 
@@ -125,7 +125,7 @@ function cheaterAlert() {
         description: 'How did you do that? Your queue number is wayy to high!',
         type: 'error',
         position: 'top-right',
-        closeTimeout: 4000
+        closeTimeout: 4500
     })
 }
 
@@ -135,7 +135,7 @@ function devilAlert() {
         description: 'The devil may be present... your queue number is suspicious...',
         type: 'info',
         position: 'top-right',
-        closeTimeout: 4000
+        closeTimeout: 4500
     })
 }
 
@@ -145,7 +145,7 @@ function weedAlert() {
         description: 'You are 420 in the queue you lucky bastard!',
         type: 'info',
         position: 'top-right',
-        closeTimeout: 4000
+        closeTimeout: 4500
     })
 }
 
@@ -155,7 +155,7 @@ function warnAlert() {
         description: 'Wait a bit and add one more to calculate your ETA!',
         type: 'warning',
         position: 'top-right',
-        closeTimeout: 8000
+        closeTimeout: 8500
     })
 }
 
@@ -180,7 +180,7 @@ GrowlNotification.notify({
     description: 'Use the Add button to add your current Queue, Then wait a while and add your new Queue to know when you will be inside the game (ETA).',
     type: 'success',
     position: 'top-right',
-    closeTimeout: 15000
+    closeTimeout: 15500
 })
 
 setTimeout(() => {
