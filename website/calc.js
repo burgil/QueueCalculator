@@ -85,12 +85,12 @@ function addQueue() {
             warnAlert()
         }
         tr.append(td3)
+        if (count == 1) {
+            firstQueue = currentQueue
+            firstTime = today.getTime()
+        }
+        document.querySelector('input').value = ''
     }
-    if (count == 1) {
-        firstQueue = currentQueue
-        firstTime = today.getTime()
-    }
-    document.querySelector('input').value = ''
 }
 
 function badAlert() {
@@ -201,7 +201,7 @@ function goodAlert(ETA, minutesLeft, showUpdate) {
         }
         GrowlNotification.notify({
             title: 'Success!',
-            description: 'You should be inside the game!',
+            description: 'You should be inside the game! (probably in the next minute or so xD)',
             type: 'success',
             position: 'top-right',
             closeTimeout: 0
