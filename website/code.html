@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server Status Notifier Script</title>
+</head>
+<body>
+    <h1><u>Server Status Notifier Installation Guide:</u> <span style="color:green">* 1000% Safe to use.</span></h1>
+    <h1>1. <a target="_blank" href="https://chrome.google.com/webstore/detail/user-javascript-and-css/nbhcbdghjpllgmfilhnhkllmkecfmpld">Download this chrome extension</a> - <b>User JavaScript and CSS (100,000+ users)</b></h1>
+    <h2>2. <a target="_blank" href="https://www.playlostark.com/en-gb/support/server-status">Open Lost Ark Server Status Website</a></h2>
+    <h3>3. Inside the <a target="_blank" href="https://www.playlostark.com/en-gb/support/server-status">server status website</a>, Find the extension and open it, This is the icon you're looking for: <img aria-hidden="true" src="https://lh3.googleusercontent.com/1TSw8ZPwr2VvUZlY1cbAPOWo5cisrfpazmTpfGH4YWGTLCJLUq23LMSKuS5ee-bBP5C0GL8wsbpV9iQ9zLEQ6Dv8Vw=w128-h128-e365-rj-sc0x00ffffff" class="e-f-s" style="width:25px; height:25px;"></h3>
+    <h4>4. Now simply click the yellow <u>+ Add new</u> button and paste <u>on the left side</u> (JS) the following script: <button onclick="document.querySelector('textarea').select();document.execCommand('copy');">Click Here To Copy</button><br>(Don't forget to <u>save</u> afterwards and <a target="_blank" href="https://www.playlostark.com/en-gb/support/server-status">reopen the server status website</a>) [Pro tip: Close the server status tab once the popup opens up]</h4>
+    <textarea style="color:rgb(17, 55, 160);background:rgb(27, 27, 27);width:100%;height:1024px;">
+const SERVER = 'Wei'
+if (window.opener && window.opener !== window) {
+    document.title = 'Server Status Notifier - Created by Burgil'
+    function find() {
+        for(server of document.querySelectorAll('.ags-ServerStatus-content-responses-response-server-name')) {
+            serverName = server.innerText.replaceAll(' ', '').replaceAll('\n', '').replaceAll('\r', '')
+            if (serverName == SERVER) {
+                show(server.parentElement.querySelector('.ags-ServerStatus-content-responses-response-server-status-wrapper .ags-ServerStatus-content-responses-response-server-status').classList.toString().replace('ags-ServerStatus-content-responses-response-server-status ags-ServerStatus-content-responses-response-server-status--', ''))
+            }
+        }
+    }
+    
+    function getRndInteger(min, max) {
+        return Math.floor(Math.random() * (max - min + 1) ) + min;
+    }
+    
+    let timer = 0
+    
+    function show(status) {
+        if (status == 'good') {
+            let count = getRndInteger(7000, 7200)
+            document.body.innerHTML = `
+            <br><br><br><br><br><center style="font-size: 42px;color:white">
+            <u>${SERVER}</u> Status: <b style="color:green">Good</b>
+            <br><br>
+            <div style="font-size:24px">You will be notified in <span id="timer">3</span> seconds...</div>
+            <br>
+            <div style="font-size:20px">The page will refresh in <span id="timer">${count}</span> seconds... (Random)</div>
+            <a style="font-size:20px;margin-top:38px;display:block" href="https://lostark.pages.dev/" target="_blank">Launch The Queue Calculator</a>
+            </center>
+            `
+            timer = setInterval(()=> {
+                count -= 1
+                document.getElementById('timer').innerHTML = count
+                if (count == 0) finish()
+            }, 1000)
+        } else if (status == 'full' || status == 'busy') {
+            if (status == 'full') status = 'Full'
+            if (status == 'busy') status = 'Busy'
+            let count = getRndInteger(500, 600)
+            document.body.innerHTML = `
+            <br><br><br><br><br><center style="font-size: 42px;color:white">
+            <u>${SERVER}</u> Status: <b style="color:yellow">${status}</b>
+            <br><br>
+            <div style="font-size:24px">You will hear a sound when the queue is over in <u>${SERVER}!</u></div>
+            <br>
+            <div style="font-size:20px">The page will refresh in <span id="timer">${count}</span> seconds... (Random)</div>
+            <a style="font-size:20px;margin-top:38px;display:block" href="https://lostark.pages.dev/" target="_blank">Launch The Queue Calculator</a>
+            </center>
+            `
+            timer = setInterval(()=> {
+                count -= 1
+                document.getElementById('timer').innerHTML = count
+                if (count == 0) {
+                    clearInterval(timer)
+                    location.reload()
+                }
+            }, 1000)
+        } else {
+            let count = getRndInteger(5, 6)
+            document.body.innerHTML = `
+            <br><br><br><br><br><center style="font-size: 42px;color:white">
+            <u>${SERVER}</u> Status: ${status == 'maintenance' ? '<b style="color:red">Maintenance</b>' : '<b style="color:blue">'+status+'</b>'}
+            <br><br>
+            <div style="font-size:24px">You will hear a sound when <u>${SERVER}</u> is back online!</div>
+            <br>
+            <div style="font-size:20px">The page will refresh in <span id="timer">${count}</span> seconds... (Random)</div>
+            <a style="font-size:20px;margin-top:38px;display:block" href="https://lostark.pages.dev/" target="_blank">Launch The Queue Calculator</a>
+            </center>
+            `
+            timer = setInterval(()=> {
+                count -= 1
+                document.getElementById('timer').innerHTML = count
+                if (count == 0) {
+                    clearInterval(timer)
+                    location.reload()
+                }
+            }, 1000)
+        }
+    }
+    
+    function finish() {
+        clearInterval(timer)
+        window.open("https://www.youtube.com/watch?v=IVrCopVcSZI")
+    }
+    
+    (()=>{
+        find()
+    })()
+} else {
+    const popupCenter = ({url, title, w, h}) => {
+        // Fixes dual-screen position                             Most browsers      Firefox
+        const dualScreenLeft = window.screenLeft !==  undefined ? window.screenLeft : window.screenX;
+        const dualScreenTop = window.screenTop !==  undefined   ? window.screenTop  : window.screenY;
+    
+        const width = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width;
+        const height = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height;
+        const systemZoom = width / window.screen.availWidth;
+        const left = (width - w) / 2 / systemZoom + dualScreenLeft
+        const top = (height - h) / 2 / systemZoom + dualScreenTop
+        const newWindow = window.open(url, title, 
+            `
+            scrollbars=yes,
+            width=${w / systemZoom}, 
+            height=${h / systemZoom}, 
+            top=${top}, 
+            left=${left}
+            `
+        )
+        if (window.focus) newWindow.focus();
+    }
+    popupCenter({url: 'https://www.playlostark.com/en-gb/support/server-status', title: 'Server Status Calculator - Created by Burgil', w: 600, h: 400});
+}</textarea>
+<p>Burgil © All Rights Reserved - 2022 (Created while waiting in the queue)</p>
+</body>
+</html>

@@ -21,6 +21,8 @@ function addQueue() {
         badAlert()
     } else if (firstQueue !== undefined && firstQueue == currentQueue) {
         repeatAlert()
+    } else if (currentQueue == 42) {
+        lifeAlert()
     } else if (currentQueue < 420) {
         smallAlert()
     } else if (firstQueue !== undefined && currentQueue > firstQueue) {
@@ -28,8 +30,6 @@ function addQueue() {
     } else if (currentQueue > 99999) {
         cheaterAlert()
     } else {
-        if (currentQueue === 420 || currentQueue === 4200) weedAlert()
-        if (currentQueue === 666 || currentQueue === 6666) devilAlert()
         count += 1 // count records
         if (count == 1) document.querySelectorAll('tr')[1].remove() // clean demo
         tr = document.querySelector('tbody').insertRow(1) // insert from top
@@ -73,18 +73,23 @@ function addQueue() {
             } else {
                 td3.innerHTML = ETA
             }
-            minutesLeft = ETA_MiliSeconds / 1000 / 60
-            goodAlert(ETA, minutesLeft, true)
-            if (count == 2) warnAlert(true)
-            if (updateETA !== 0) {
-                clearInterval(updateETA)
-                updateETA = 0;
-            }
-            updateETA = setInterval(()=>{
-                ETA_MiliSeconds -= 60000
+            if (count == 2) {
+                warnAlert(true)
+            } else {
                 minutesLeft = ETA_MiliSeconds / 1000 / 60
-                goodAlert(ETA, minutesLeft, false)
-            }, 60000);
+                goodAlert(ETA, minutesLeft, true)
+                if (updateETA !== 0) {
+                    clearInterval(updateETA)
+                    updateETA = 0;
+                }
+                updateETA = setInterval(()=>{
+                    ETA_MiliSeconds -= 60000
+                    minutesLeft = ETA_MiliSeconds / 1000 / 60
+                    goodAlert(ETA, minutesLeft, false)
+                }, 60000);
+            }
+            if (currentQueue === 420 || currentQueue === 4200) weedAlert()
+            if (currentQueue === 666 || currentQueue === 6666) devilAlert()
         } else {
             td3.innerHTML = 'Unknown yet'
             warnAlert()
@@ -112,6 +117,16 @@ function smallAlert() {
     GrowlNotification.notify({
         title: '420 ERROR',
         description: 'Can not calculate anything below 420 (;',
+        type: 'error',
+        position: 'top-right',
+        closeTimeout: 4500
+    })
+}
+
+function lifeAlert() {
+    GrowlNotification.notify({
+        title: '42 ERROR',
+        description: 'Can not calculate the answer to life..',
         type: 'error',
         position: 'top-right',
         closeTimeout: 4500
@@ -171,7 +186,7 @@ function weedAlert() {
 function warnAlert(isSecond=false) {
     if (isSecond) {
         GrowlNotification.notify({
-            title: 'Need <b>two</b> more!',
+            title: 'Need <u><b>one</b></u> more!',
             description: 'Wait a bit and add one more to calculate your ETA!',
             type: 'warning',
             position: 'top-right',
@@ -179,8 +194,8 @@ function warnAlert(isSecond=false) {
         })
     } else {
         GrowlNotification.notify({
-            title: 'Need one more!',
-            description: 'Wait a bit and add one more to calculate your ETA!',
+            title: 'Need <u><b>two</b></u> more!',
+            description: 'The longer you wait the more accurate our prediction will be!',
             type: 'warning',
             position: 'top-right',
             closeTimeout: 8500
