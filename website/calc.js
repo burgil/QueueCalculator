@@ -68,8 +68,13 @@ function addQueue() {
             console.log('unix_timestamp: ' + unix_timestamp)
             console.log('ETA: ' + ETA)
             console.log('------------------------------')
-            td3.innerHTML = ETA
+            if (count == 2) {
+                td3.innerHTML = `<span style="color:yellow">${ETA}</span>`
+            } else {
+                td3.innerHTML = ETA
+            }
             minutesLeft = ETA_MiliSeconds / 1000 / 60
+            if (count == 2) warnAlert(true)
             goodAlert(ETA, minutesLeft, true)
             if (updateETA !== 0) {
                 clearInterval(updateETA)
@@ -163,14 +168,24 @@ function weedAlert() {
     })
 }
 
-function warnAlert() {
-    GrowlNotification.notify({
-        title: 'Need one more!',
-        description: 'Wait a bit and add one more to calculate your ETA!',
-        type: 'warning',
-        position: 'top-right',
-        closeTimeout: 8500
-    })
+function warnAlert(isSecond=false) {
+    if (isSecond) {
+        GrowlNotification.notify({
+            title: 'Need <b>two</b> more!',
+            description: 'Wait a bit and add one more to calculate your ETA!',
+            type: 'warning',
+            position: 'top-right',
+            closeTimeout: 8500
+        })
+    } else {
+        GrowlNotification.notify({
+            title: 'Need one more!',
+            description: 'Wait a bit and add one more to calculate your ETA!',
+            type: 'warning',
+            position: 'top-right',
+            closeTimeout: 8500
+        })
+    }
 }
 
 function goodAlert(ETA, minutesLeft, showUpdate) {
@@ -201,7 +216,7 @@ function goodAlert(ETA, minutesLeft, showUpdate) {
         }
         GrowlNotification.notify({
             title: 'Success!',
-            description: 'You should be inside the game! (probably in the next minute or so xD)',
+            description: 'You should be inside the game!<br><span style="font-size:14px">(probably in the next minute or so xD)</span>',
             type: 'success',
             position: 'top-right',
             closeTimeout: 0
