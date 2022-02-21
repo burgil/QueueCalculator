@@ -69,13 +69,13 @@ function addQueue() {
             console.log('ETA: ' + ETA)
             console.log('------------------------------')
             if (count == 2) {
-                td3.innerHTML = `<span style="color:yellow">${ETA}</span>`
+                td3.innerHTML = `<span style="color:#ffb100">${ETA}</span>`
             } else {
                 td3.innerHTML = ETA
             }
             minutesLeft = ETA_MiliSeconds / 1000 / 60
-            if (count == 2) warnAlert(true)
             goodAlert(ETA, minutesLeft, true)
+            if (count == 2) warnAlert(true)
             if (updateETA !== 0) {
                 clearInterval(updateETA)
                 updateETA = 0;
