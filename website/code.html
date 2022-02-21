@@ -32,22 +32,32 @@ if (window.opener && window.opener !== window) {
     let timer = 0
     
     function show(status) {
+        status = 'good'
         if (status == 'good') {
+            let refresher = 3
             let count = getRndInteger(7000, 7200)
             document.body.innerHTML = `
             <br><br><br><br><br><center style="font-size: 42px;color:white">
             <u>${SERVER}</u> Status: <b style="color:green">Good</b>
             <br><br>
-            <div style="font-size:24px">You will be notified in <span id="timer">3</span> seconds...</div>
+            <div style="font-size:24px">You will be notified in <span id="refresher">${refresher}</span> seconds...</div>
             <br>
             <div style="font-size:20px">The page will refresh in <span id="timer">${count}</span> seconds... (Random)</div>
             <a style="font-size:20px;margin-top:38px;display:block" href="https://lostark.pages.dev/" target="_blank">Launch The Queue Calculator</a>
             </center>
             `
             timer = setInterval(()=> {
+                refresher -= 1
+                document.getElementById('refresher').innerHTML = refresher
+                if (refresher == 0) finish()
+            }, 1000)
+            timer = setInterval(()=> {
                 count -= 1
                 document.getElementById('timer').innerHTML = count
-                if (count == 0) finish()
+                if (count == 0) {
+                    clearInterval(timer)
+                    location.reload()
+                }
             }, 1000)
         } else if (status == 'full' || status == 'busy') {
             if (status == 'full') status = 'Full'
