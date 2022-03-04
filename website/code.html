@@ -21,12 +21,15 @@ const SERVER = 'Wei'
 if (window.opener && window.opener !== window) {
     document.title = 'Server Status Notifier - Created by Burgil'
     function find() {
+		let didFind = false
         for(server of document.querySelectorAll('.ags-ServerStatus-content-responses-response-server-name')) {
             serverName = server.innerText.replaceAll(' ', '').replaceAll('\n', '').replaceAll('\r', '')
             if (serverName == SERVER) {
+				didFind = true
                 show(server.parentElement.querySelector('.ags-ServerStatus-content-responses-response-server-status-wrapper .ags-ServerStatus-content-responses-response-server-status').classList.toString().replace('ags-ServerStatus-content-responses-response-server-status ags-ServerStatus-content-responses-response-server-status--', ''))
             }
         }
+		if (!didFind) show('maintenance')
     }
     
     function getRndInteger(min, max) {
