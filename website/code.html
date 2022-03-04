@@ -43,7 +43,7 @@ if ((window.opener && window.opener !== window) || location.href.includes('#')) 
             let refresher = 3
             let count = getRndInteger(7000, 7200)
             document.body.innerHTML = `
-            <br><br><br><br><br><center style="font-size: 42px;color:white">
+            <br><br><br><br><center style="font-size: 42px;color:white">
             <u>${SERVER}</u> Status: <b style="color:green">Good</b>
             <br><br>
             <div style="font-size:24px">You will be notified in <span id="refresher">${refresher}</span> seconds...</div>
@@ -73,7 +73,7 @@ if ((window.opener && window.opener !== window) || location.href.includes('#')) 
             if (status == 'busy') status = 'Busy'
             let count = getRndInteger(500, 600)
             document.body.innerHTML = `
-            <br><br><br><br><br><center style="font-size: 42px;color:white">
+            <br><br><br><br><center style="font-size: 42px;color:white">
             <u>${SERVER}</u> Status: <b style="color:yellow">${status}</b>
             <br><br>
             <div style="font-size:24px">You will hear a sound when the queue is over in <u>${SERVER}!</u></div>
@@ -91,9 +91,9 @@ if ((window.opener && window.opener !== window) || location.href.includes('#')) 
                 }
             }, 1000)
         } else {
-            let count = getRndInteger(5, 6)
+            let count = getRndInteger(5, 10)
             document.body.innerHTML = `
-            <br><br><br><br><br><center style="font-size: 42px;color:white">
+            <br><br><br><br><center style="font-size: 42px;color:white">
             <u>${SERVER}</u> Status: ${status == 'maintenance' ? '<b style="color:red">Maintenance</b>' : '<b style="color:blue">'+status+'</b>'}
             <br><br>
             <div style="font-size:24px">You will hear a sound when <u>${SERVER}</u> is back online!</div>
@@ -121,6 +121,7 @@ if ((window.opener && window.opener !== window) || location.href.includes('#')) 
         find()
     })()
 } else {
+	if (!location.href.includes('server-status')) return
     const popupCenter = ({url, title, w, h}) => {
         // Fixes dual-screen position                             Most browsers      Firefox
         const dualScreenLeft = window.screenLeft !==  undefined ? window.screenLeft : window.screenX;
@@ -142,7 +143,7 @@ if ((window.opener && window.opener !== window) || location.href.includes('#')) 
         )
         if (window.focus) newWindow.focus();
     }
-    popupCenter({url: 'https://www.playlostark.com/en-gb/support/server-status#', title: 'Server Status Calculator - Created by Burgil', w: 600, h: 400});
+    popupCenter({url: 'https://www.playlostark.com/en-gb/support/server-status#', title: 'Server Status Calculator - Created by Burgil', w: 400, h: 270});
 	window.close()
 }</textarea>
 <p>Burgil © All Rights Reserved - 2022 (Created while waiting in maintenance)</p>
