@@ -65,7 +65,7 @@ if ((window.opener && window.opener !== window) || location.href.includes('#')) 
                 document.getElementById('timer').innerHTML = count
                 if (count == 0) {
                     clearInterval(timer)
-                    location.reload()
+                    location.href = location.href
                 }
             }, 1000)
         } else if (status == 'full' || status == 'busy') {
@@ -87,7 +87,7 @@ if ((window.opener && window.opener !== window) || location.href.includes('#')) 
                 document.getElementById('timer').innerHTML = count
                 if (count == 0) {
                     clearInterval(timer)
-                    location.reload()
+                    location.href = location.href
                 }
             }, 1000)
         } else {
@@ -107,7 +107,7 @@ if ((window.opener && window.opener !== window) || location.href.includes('#')) 
                 document.getElementById('timer').innerHTML = count
                 if (count == 0) {
                     clearInterval(timer)
-                    location.reload()
+                    location.href = location.href
                 }
             }, 1000)
         }
