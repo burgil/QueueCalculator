@@ -18,7 +18,7 @@
     <h4>4. Now simply click the yellow <u>+ Add new</u> button and paste <u>on the left side</u> (JS) the following script: <button style="color:white;background:green" onclick="document.querySelector('textarea').select();document.execCommand('copy');">Click Here To Copy</button><br>(Don't forget to <u>save</u> afterwards and <a target="_blank" href="https://www.playlostark.com/en-gb/support/server-status">reopen the server status website</a>) [Pro tip: Close the server status tab once the popup opens up]</h4>
     <textarea style="color:rgb(17, 55, 160);background:rgb(27, 27, 27);width:100%;height:1024px;">
 const SERVER = 'Wei'
-if (window.opener && window.opener !== window) {
+if ((window.opener && window.opener !== window) || location.href.includes('#')) {
     document.title = 'Server Status Notifier - Created by Burgil'
     function find() {
 		let didFind = false
@@ -142,7 +142,7 @@ if (window.opener && window.opener !== window) {
         )
         if (window.focus) newWindow.focus();
     }
-    popupCenter({url: 'https://www.playlostark.com/en-gb/support/server-status', title: 'Server Status Calculator - Created by Burgil', w: 600, h: 400});
+    popupCenter({url: 'https://www.playlostark.com/en-gb/support/server-status#', title: 'Server Status Calculator - Created by Burgil', w: 600, h: 400});
 }</textarea>
 <p>Burgil © All Rights Reserved - 2022 (Created while waiting in maintenance)</p>
 </body>
